@@ -1,0 +1,247 @@
+{
+  "generatedBy": "Claude (Opus 5.5), drafted from the four case documents",
+  "sections": [
+    {
+      "id": "case-information",
+      "segments": [
+        {
+          "text": "Jordan Thomas Whitfield, born March 14, 1995 (age 31), is before the court in Case No. CD-2026-104582.",
+          "cites": [
+            { "doc": "criminal-history", "quote": "DOB: 03/14/1995" },
+            { "doc": "court-transcript", "quote": "People v. Jordan Thomas Whitfield, Case No. CD-2026-104582" }
+          ]
+        },
+        {
+          "text": "On August 21, 2026, he pleaded guilty to Count 1, second-degree commercial burglary (Penal Code section 459).",
+          "cites": [
+            { "doc": "court-transcript", "quote": "To Count 1, a violation of Penal Code section 459, second-degree burglary, how do you plead?" },
+            { "doc": "court-transcript", "quote": "THE DEFENDANT: Guilty." }
+          ]
+        },
+        {
+          "text": "Count 2, vandalism, is to be dismissed with a Harvey waiver as to restitution. There is no agreement as to sentence.",
+          "cites": [
+            { "doc": "court-transcript", "quote": "The People will move to dismiss Count 2, vandalism, with a Harvey waiver as to restitution." },
+            { "doc": "court-transcript", "quote": "There is no agreement as to sentence." }
+          ]
+        },
+        {
+          "text": "Sentencing is set for October 23, 2026, in Department 14. The defendant is in custody.",
+          "cites": [
+            { "doc": "court-transcript", "quote": "Sentencing is set for October 23, 2026, in this department." },
+            { "doc": "court-transcript", "quote": "The defendant is remanded." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "offense-summary",
+      "segments": [
+        {
+          "text": "On June 18, 2026, at about 2:15 a.m., a deputy responded to a burglary alarm at Mesa Ridge Hardware and found the glass panel of the rear service door broken.",
+          "cites": [
+            { "doc": "police-report", "quote": "On June 18, 2026, at approximately 0215 hours, I was dispatched to Mesa Ridge Hardware regarding an audible burglary alarm." },
+            { "doc": "police-report", "quote": "the glass panel of the rear service door had been broken and the door was ajar" }
+          ]
+        },
+        {
+          "text": "The deputy stopped Mr. Whitfield as he walked away from the building carrying a duffel bag. He complied and said he would not run.",
+          "cites": [
+            { "doc": "police-report", "quote": "I observed a male subject walking away from the building carrying a large duffel bag" },
+            { "doc": "police-report", "quote": "The subject complied, set the bag on the ground, and stated, \"I'm not going to run.\"" }
+          ]
+        },
+        {
+          "text": "The bag held two drill kits, three saws, and four battery packs, all bearing the store's inventory tags.",
+          "cites": [
+            { "doc": "police-report", "quote": "Inside the duffel bag I located two cordless drill kits, one cordless circular saw, one reciprocating saw, and four lithium battery packs, all bearing Mesa Ridge Hardware inventory tags." }
+          ]
+        },
+        {
+          "text": "After a Miranda advisement, Mr. Whitfield said he broke the glass with a rock, entered alone, and planned to sell the tools to cover rent after being out of work.",
+          "cites": [
+            { "doc": "police-report", "quote": "He stated he broke the glass with a rock and entered the store alone." },
+            { "doc": "police-report", "quote": "Whitfield stated he had been \"out of work for a couple months\" and was \"going to sell the tools to cover rent.\"" }
+          ]
+        },
+        {
+          "text": "Store security video showed one person entering through the rear door at 2:09 a.m. and leaving at 2:17 a.m.",
+          "cites": [
+            { "doc": "police-report", "quote": "Store security video showed a single male matching Whitfield's description entering through the rear door at 0209 hours and exiting at 0217 hours." }
+          ]
+        },
+        {
+          "text": "Mr. Whitfield said he had not used drugs or alcohol that night, and the deputy observed no signs of intoxication.",
+          "cites": [
+            { "doc": "police-report", "quote": "He stated he had not used drugs or alcohol that night." },
+            { "doc": "police-report", "quote": "I did not observe objective signs of intoxication." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "defendant-statement",
+      "segments": [
+        {
+          "text": "At the change of plea hearing, Mr. Whitfield apologized to the store and said he panicked about rent after losing his job, adding that this was not an excuse.",
+          "cites": [
+            { "doc": "court-transcript", "quote": "Just that I'm sorry for what I did to the store. I lost my job and I panicked about rent, but that's not an excuse." }
+          ]
+        },
+        {
+          "text": "He told the court he wants to repay the store.",
+          "cites": [
+            { "doc": "court-transcript", "quote": "I want to pay them back." }
+          ]
+        },
+        {
+          "text": "In the probation interview, he said he knew the conduct was wrong at the time and described it as a bad decision made out of desperation.",
+          "cites": [
+            { "doc": "case-notes", "quote": "I knew it was wrong when I was doing it. I was desperate and I made a bad decision." }
+          ]
+        },
+        {
+          "text": "He said he is willing to complete any program the court orders and to pay restitution.",
+          "cites": [
+            { "doc": "case-notes", "quote": "He stated he is willing to complete any program the court orders and wants to pay restitution to the store." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prior-record",
+      "segments": [
+        {
+          "text": "Mr. Whitfield has three prior adult misdemeanor convictions. No juvenile record is reported.",
+          "cites": [
+            { "doc": "criminal-history", "quote": "None reported." }
+          ]
+        },
+        {
+          "text": "2014 — Petty theft (PC 484(a)). Summary probation for one year, 10 days jail with credit for time served, and $85 restitution. Probation completed.",
+          "cites": [
+            { "doc": "criminal-history", "quote": "Arrest date 11/03/2014 — PC 484(a), Petty Theft" },
+            { "doc": "criminal-history", "quote": "Summary probation 1 year, 10 days jail (credit for time served), restitution $85. Probation completed." }
+          ]
+        },
+        {
+          "text": "2017 — Driving with a BAC of 0.08% or higher (VC 23152(b)). Summary probation for three years and a first-offender DUI program. Probation completed in September 2020.",
+          "cites": [
+            { "doc": "criminal-history", "quote": "VC 23152(b), Driving with BAC 0.08% or higher" },
+            { "doc": "criminal-history", "quote": "Summary probation 3 years, fines and fees, first-offender DUI program. Probation completed 09/2020." }
+          ]
+        },
+        {
+          "text": "2019 — Possession of methamphetamine (HS 11377(a)). Formal probation for two years with a drug treatment condition.",
+          "cites": [
+            { "doc": "criminal-history", "quote": "HS 11377(a), Possession of a Controlled Substance (methamphetamine)" },
+            { "doc": "criminal-history", "quote": "Formal probation 2 years with drug treatment condition." }
+          ]
+        },
+        {
+          "text": "He violated that probation in February 2020 by failing to report for drug testing. Probation was reinstated with 30 days custody and outpatient treatment, which he completed in August 2020. Probation was completed in June 2021.",
+          "cites": [
+            { "doc": "criminal-history", "quote": "Probation violation 02/11/2020: failed to report for drug testing." },
+            { "doc": "criminal-history", "quote": "Probation reinstated with 30 days custody and an outpatient treatment requirement." },
+            { "doc": "criminal-history", "quote": "Outpatient treatment completed 08/2020. Probation completed 06/2021." }
+          ]
+        },
+        {
+          "text": "No arrests or convictions are recorded after June 2021.",
+          "cites": [
+            { "doc": "criminal-history", "quote": "No further arrests or convictions after 06/2021." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "social-history",
+      "segments": [
+        {
+          "text": "Mr. Whitfield was raised in El Cajon, the younger of two children. His parents divorced when he was 9, and his mother, with whom he primarily lived, died in 2023.",
+          "cites": [
+            { "doc": "case-notes", "quote": "He was born and raised in El Cajon and is the younger of two children." },
+            { "doc": "case-notes", "quote": "His parents divorced when he was 9; he lived primarily with his mother, who passed away in 2023." }
+          ]
+        },
+        {
+          "text": "He has a 4-year-old daughter who lives with her mother. He paid informal child support while employed and sees his daughter most weekends.",
+          "cites": [
+            { "doc": "case-notes", "quote": "Defendant has a 4-year-old daughter who lives with her mother in Santee." },
+            { "doc": "case-notes", "quote": "He reported he paid informal child support while employed and sees his daughter most weekends." }
+          ]
+        },
+        {
+          "text": "He graduated from high school in 2013 and completed an HVAC technician certificate in 2016.",
+          "cites": [
+            { "doc": "case-notes", "quote": "Defendant graduated from Granite Hills High School in 2013 and completed a 9-month HVAC technician certificate program at a community college in 2016." }
+          ]
+        },
+        {
+          "text": "He worked as an HVAC installer from 2017 until he was laid off in April 2026, and was two months behind on rent at the time of the offense. His sister confirmed the job loss.",
+          "cites": [
+            { "doc": "case-notes", "quote": "Defendant worked as an HVAC installer for Coastline Climate Services from 2017 until April 2026, when he was laid off during a staff reduction." },
+            { "doc": "case-notes", "quote": "had fallen two months behind on rent at the time of the offense" },
+            { "doc": "case-notes", "quote": "Ms. Whitfield confirmed the defendant lost his job in April" }
+          ]
+        },
+        {
+          "text": "He reported drinking from age 16, heavy drinking in his early twenties, and current use of a few beers on weekends.",
+          "cites": [
+            { "doc": "case-notes", "quote": "Defendant reported he began drinking alcohol at 16." },
+            { "doc": "case-notes", "quote": "He reported drinking heavily in his early twenties, which he connected to his 2017 DUI arrest." },
+            { "doc": "case-notes", "quote": "He reported current drinking of \"a few beers on weekends\"" }
+          ]
+        },
+        {
+          "text": "He reported occasional methamphetamine use in 2018–2019 and denied any use since completing outpatient treatment in 2020.",
+          "cites": [
+            { "doc": "case-notes", "quote": "He reported occasional methamphetamine use between 2018 and 2019 and denied any use since completing outpatient treatment in 2020." }
+          ]
+        },
+        {
+          "text": "His sister stated he may live with her in Lakeside on release and that she could help him get to appointments.",
+          "cites": [
+            { "doc": "case-notes", "quote": "She stated the defendant may live with her in Lakeside upon release and that she could help him get to appointments." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "victim-impact",
+      "segments": [
+        {
+          "text": "The victim is Mesa Ridge Hardware, represented by store manager Patricia Nguyen.",
+          "cites": [
+            { "doc": "police-report", "quote": "Store manager Patricia Nguyen arrived at 0305 hours and reviewed the recovered property." }
+          ]
+        },
+        {
+          "text": "Tools valued at about $1,840 were recovered at the scene and returned to the store undamaged.",
+          "cites": [
+            { "doc": "police-report", "quote": "Nguyen stated the recovered tools had a retail value of approximately $1,840." },
+            { "doc": "case-notes", "quote": "She stated the recovered tools were returned undamaged and put back on sale." }
+          ]
+        },
+        {
+          "text": "Ms. Nguyen reported a total loss of $720: an unrecovered circular saw and battery ($410) and replacement of the rear door glass ($310).",
+          "cites": [
+            { "doc": "case-notes", "quote": "Ms. Nguyen stated the store's total loss was $720, consisting of the unrecovered circular saw and battery ($410) and the rear door glass replacement ($310)." }
+          ]
+        },
+        {
+          "text": "She said staff were shaken up and the store has since added a security gate to the rear door.",
+          "cites": [
+            { "doc": "case-notes", "quote": "She stated staff were \"shaken up\" and the store has since added a security gate to the rear door." }
+          ]
+        },
+        {
+          "text": "The store is requesting full restitution and does not wish to make a further statement to the court.",
+          "cites": [
+            { "doc": "case-notes", "quote": "She stated the store is requesting full restitution and does not wish to make a further statement to the court." }
+          ]
+        }
+      ]
+    }
+  ]
+}
