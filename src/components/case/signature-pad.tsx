@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -53,7 +54,7 @@ export function SignaturePad({
 
   return (
     <div>
-      <div className={cn("relative rounded-lg border bg-background", disabled && "opacity-60")}>
+      <div className={cn("relative rounded-lg border", disabled ? "border-dashed bg-muted" : "bg-background")}>
         <canvas
           ref={canvasRef}
           aria-label="Signature pad. Draw your signature with a trackpad, mouse or finger."
@@ -89,13 +90,19 @@ export function SignaturePad({
         {/* Signature line and prompt, under the ink */}
         <div className="pointer-events-none absolute inset-x-6 bottom-8 border-b border-dashed border-input" />
         {empty && (
-          <span className="pointer-events-none absolute bottom-10 left-6 text-sm text-muted-foreground">
-            Sign here
+          <span className="pointer-events-none absolute bottom-10 left-6 flex items-center gap-1.5 text-sm text-muted-foreground">
+            {disabled ? (
+              <>
+                <Lock className="size-3.5" /> Tick the statement above to sign
+              </>
+            ) : (
+              "Sign here"
+            )}
           </span>
         )}
       </div>
       <div className="mt-1.5 flex justify-between text-xs text-muted-foreground">
-        <span>Draw with your trackpad, mouse or finger.</span>
+        <span>{disabled ? "\u00a0" : "Draw with your trackpad, mouse or finger."}</span>
         {!empty && !disabled && (
           <Button variant="link" size="xs" className="h-auto p-0 text-xs" onClick={clear}>
             Clear

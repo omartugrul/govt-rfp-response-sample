@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Bell, Search } from "lucide-react";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -133,15 +133,22 @@ export function TopBar() {
           render={<Button variant="ghost" className="h-10 gap-2 px-1.5" aria-label={`Account: ${OFFICER}`} />}
         >
           <Avatar className="size-8">
+            <AvatarImage src="/avatar.png" alt="" />
             <AvatarFallback className="bg-primary text-xs font-semibold text-primary-foreground">JR</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-60">
           <DropdownMenuGroup>
-            <DropdownMenuLabel className="font-normal">
-              <p className="text-sm font-medium text-foreground">{OFFICER}</p>
-              <p className="text-xs text-muted-foreground">{OFFICER_TITLE}</p>
-              <p className="text-xs text-muted-foreground">{OFFICER_UNIT}</p>
+            <DropdownMenuLabel className="flex items-center gap-3 font-normal">
+              <Avatar className="size-10">
+                <AvatarImage src="/avatar.png" alt="" />
+                <AvatarFallback className="bg-primary text-xs font-semibold text-primary-foreground">JR</AvatarFallback>
+              </Avatar>
+              <span>
+                <span className="block text-sm font-medium text-foreground">{OFFICER}</span>
+                <span className="block text-xs text-muted-foreground">{OFFICER_TITLE}</span>
+                <span className="block text-xs text-muted-foreground">{OFFICER_UNIT}</span>
+              </span>
             </DropdownMenuLabel>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />

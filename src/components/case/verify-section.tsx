@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -19,6 +19,12 @@ export function VerifySection({ sectionId }: { sectionId: string }) {
   // Every section opens on its first source.
   const [activeCite, setActiveCite] = useState(1);
   const def = FACTS.find((d) => d.id === sectionId)!;
+  const manual = state.mode === "manual";
+
+  // The officer hasn't chosen how to prepare this report yet.
+  useEffect(() => {
+    if (state.mode === "unset") router.replace(`/cases/${record.id}/start`);
+  }, [state.mode, record.id, router]);
 
   const goToNextOpen = () => {
     const start = FACTS.findIndex((d) => d.id === sectionId);
@@ -28,7 +34,9 @@ export function VerifySection({ sectionId }: { sectionId: string }) {
     if (next) {
       router.push(`/cases/${record.id}/verify/${next.id}`);
     } else {
-      toast.success("All facts verified", { description: "Next, write your evaluation and recommendation." });
+      toast.success(state.mode === "manual" ? "All facts written" : "All facts verified", {
+        description: "Next, write your evaluation and recommendation.",
+      });
       router.push(`/cases/${record.id}/assess`);
     }
   };
@@ -50,7 +58,7 @@ export function VerifySection({ sectionId }: { sectionId: string }) {
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel defaultSize="45%" minSize="30%">
-        <DocumentViewer sectionId={def.id} activeCite={activeCite} onCite={setActiveCite} />
+        <DocumentViewer sectionId={def.id} activeCite={activeCite} onCite={setActiveCite} manual={manual} />
       </ResizablePanel>
     </ResizablePanelGroup>
   );

@@ -7,9 +7,9 @@ import { CheckCircle2 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import { ActivityList } from "@/components/case/activity-panel";
 import { useCase } from "@/components/case/case-context";
-import { formatTime } from "@/components/case/fact-section";
-import { OFFICER, OFFICER_TITLE } from "@/lib/cases";
+import { OFFICER_TITLE } from "@/lib/cases";
 import { currentStep } from "@/lib/case-state";
 import { SECTIONS } from "@/lib/report";
 
@@ -32,7 +32,9 @@ export default function DonePage() {
     ["Filed with", `Superior Court, Dept. 14, for sentencing on ${record.sentencingDate}`],
     [
       "Factual sections",
-      `${facts.length} verified against ${draft.citationCount} cited passages${edited ? `, ${edited} edited or rewritten by you` : ""}`,
+      state.mode === "manual"
+        ? `${facts.length} written by you, without AI assistance`
+        : `${facts.length} verified against ${draft.citationCount} cited passages${edited ? `, ${edited} edited or rewritten by you` : ""}`,
     ],
     ["Evaluation & recommendation", "Written by you"],
   ];
@@ -76,18 +78,9 @@ export default function DonePage() {
 
         <h3 className="text-lg font-semibold">Activity</h3>
         <p className="mt-1 text-sm text-muted-foreground">Every AI draft and officer action on this report.</p>
-        <ol className="mt-5 divide-y">
-          {[...state.history].reverse().map((e, i) => (
-            <li key={i} className="grid grid-cols-[9rem_1fr] gap-4 py-3 text-sm">
-              <span className="text-muted-foreground tabular-nums">{formatTime(e.at)}</span>
-              <span>
-                <span className="font-medium">{e.action}</span>
-                <span className="text-muted-foreground"> by {e.actor === "AI" ? "AI" : OFFICER}</span>
-                {e.detail && <span className="block text-muted-foreground">{e.detail}</span>}
-              </span>
-            </li>
-          ))}
-        </ol>
+        <div className="mt-3">
+          <ActivityList />
+        </div>
       </div>
     </ScrollArea>
   );

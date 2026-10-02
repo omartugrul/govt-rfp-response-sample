@@ -28,6 +28,11 @@ export function ReportDocument() {
           </section>
         ))}
       </div>
+      <p className="mt-10 border-t pt-4 text-sm text-muted-foreground">
+        {state.mode === "manual"
+          ? "Prepared without AI assistance."
+          : "Factual sections drafted with AI assistance from the case documents and verified by the officer. The evaluation and recommendation were written by the officer."}
+      </p>
       {state.signed && (
         <footer className="mt-12 border-t pt-6">
           {/* eslint-disable-next-line @next/next/no-img-element -- a data URL drawn by the officer */}

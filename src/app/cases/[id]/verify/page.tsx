@@ -12,6 +12,7 @@ export default function VerifyIndexPage() {
   const { record, state } = useCase();
   const router = useRouter();
   useEffect(() => {
+    if (state.mode === "unset") return router.replace(`/cases/${record.id}/start`);
     const next = FACTS.find((d) => state.sections[d.id].status !== "approved") ?? FACTS[0];
     router.replace(`/cases/${record.id}/verify/${next.id}`);
   }, [record.id, state, router]);

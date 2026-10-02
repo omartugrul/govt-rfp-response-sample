@@ -17,13 +17,16 @@ export function DocumentViewer({
   sectionId,
   activeCite,
   onCite,
+  manual = false,
 }: {
   sectionId: string;
   activeCite: number;
   onCite: (n: number) => void;
+  /** Writing without AI: plain documents, no citations to step through. */
+  manual?: boolean;
 }) {
   const { draft } = useCase();
-  const cites = draft.sections.find((s) => s.id === sectionId)?.segments.flatMap((s) => s.cites) ?? [];
+  const cites = manual ? [] : (draft.sections.find((s) => s.id === sectionId)?.segments.flatMap((s) => s.cites) ?? []);
   const active = cites[activeCite - 1];
   const [viewing, setViewing] = useState<DocId>(active?.doc ?? "police-report");
   const [shownCite, setShownCite] = useState(activeCite);
@@ -75,33 +78,42 @@ export function DocumentViewer({
   return (
     <section aria-label="Source documents" className="flex h-full min-h-0 flex-col border-l bg-background">
       <div className="flex items-center justify-between gap-3 border-b px-5 py-3">
-        <div className="min-w-0">
-          <h2 className="truncate text-sm font-semibold">
-            Source {activeCite} of {cites.length}
-            <span className="font-normal text-muted-foreground">, {active && docTitle(active.doc)}</span>
-          </h2>
-          <p className="text-xs text-muted-foreground">Click a sentence or number in the report to jump to its source.</p>
-        </div>
-        <div className="flex shrink-0 gap-1">
-          <Button
-            variant="outline"
-            size="icon-sm"
-            aria-label="Previous source"
-            disabled={activeCite <= 1}
-            onClick={() => onCite(activeCite - 1)}
-          >
-            <ChevronLeft />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon-sm"
-            aria-label="Next source"
-            disabled={activeCite >= cites.length}
-            onClick={() => onCite(activeCite + 1)}
-          >
-            <ChevronRight />
-          </Button>
-        </div>
+        {manual ? (
+          <div className="min-w-0">
+            <h2 className="text-sm font-semibold">Case documents</h2>
+            <p className="text-xs text-muted-foreground">Everything attached to this case, for reference while you write.</p>
+          </div>
+        ) : (
+          <>
+            <div className="min-w-0">
+              <h2 className="truncate text-sm font-semibold">
+                Source {activeCite} of {cites.length}
+                <span className="font-normal text-muted-foreground">, {active && docTitle(active.doc)}</span>
+              </h2>
+              <p className="text-xs text-muted-foreground">Click a sentence or number in the report to jump to its source.</p>
+            </div>
+            <div className="flex shrink-0 gap-1">
+              <Button
+                variant="outline"
+                size="icon-sm"
+                aria-label="Previous source"
+                disabled={activeCite <= 1}
+                onClick={() => onCite(activeCite - 1)}
+              >
+                <ChevronLeft />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon-sm"
+                aria-label="Next source"
+                disabled={activeCite >= cites.length}
+                onClick={() => onCite(activeCite + 1)}
+              >
+                <ChevronRight />
+              </Button>
+            </div>
+          </>
+        )}
       </div>
 
       <Tabs value={viewing} onValueChange={(v) => setViewing(v as DocId)} className="gap-0">

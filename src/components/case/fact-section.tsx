@@ -224,12 +224,14 @@ export function FactSection({
             <p className="mt-4 flex items-start gap-1.5 text-xs leading-relaxed text-muted-foreground">
               <Info className="mt-0.5 size-3.5 shrink-0" />
               <span>
-                {freeform
+                {caseState.mode === "manual"
+                  ? "Written by you without AI assistance. The case documents are on the right for reference."
+                  : freeform
                   ? "Written by you. The AI draft is set aside. "
                   : showingSuggestion
                     ? "AI-generated draft. It may contain errors. Check every statement against its numbered source before approving. "
                     : "AI-assisted draft, edited by you. Check every statement against its numbered source before approving. "}
-                {!showingSuggestion && (
+                {!showingSuggestion && caseState.mode !== "manual" && (
                   <Button variant="link" className="h-auto p-0 text-xs" onClick={() => restoreSuggestion(def.id)}>
                     {freeform ? "Use the AI draft instead" : "Restore the original AI draft"}
                   </Button>

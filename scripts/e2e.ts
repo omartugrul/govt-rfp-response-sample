@@ -89,9 +89,13 @@ check((await path()) === "/cases", "clicking a sample row does nothing");
 
 const demoRow = (await (await rowFor("Whitfield")).boundingBox())!;
 await page.mouse.click(demoRow.x + demoRow.width * 0.45, demoRow.y + demoRow.height / 2);
+await page.waitForFunction(() => location.pathname.endsWith("/start"));
+await wait(500);
+check((await text()).includes("How do you want to prepare this report?"), "opening a new case asks whether to use AI");
+await clickText("button", "Start from AI drafts");
 await page.waitForFunction(() => location.pathname.endsWith("/verify/case-information"));
 await wait(700);
-check(true, "clicking the demo row opens step 1 on its first section");
+check(true, "choosing AI drafts opens step 1 on its first section");
 check((await sidebarState()) === "expanded", "opening a case doesn't change the sidebar");
 check((await page.$("input[type='search']")) === null, "search steps aside inside a case");
 await page.click("[data-slot='sidebar'] [data-sidebar='trigger']");
@@ -114,6 +118,13 @@ check(
   "outline marks the current section",
 );
 check((await (await stepItem("Sign and file")).$("[aria-disabled]")) !== null, "Sign and file is locked at the start");
+
+// --- Activity log, from any step ---
+await page.click("aside button[aria-label='Activity']");
+await wait(500);
+check((await text()).includes("Chose to start from AI drafts"), "Activity opens the case's log in a side panel");
+await page.keyboard.press("Escape");
+await wait(400);
 
 // --- Document column ---
 check((await viewerHeading()).startsWith("Source 1 of 8"), "section opens on its first source");
@@ -190,8 +201,10 @@ await wait();
 // --- Step 3: draw a signature ---
 const submitDisabled = () => page.$eval("form button[type='submit']", (b) => (b as HTMLButtonElement).disabled);
 check(await submitDisabled(), "Sign is disabled before attesting and signing");
+check((await text()).includes("Tick the statement above to sign"), "signature box says it's locked until the statement is ticked");
 await page.click("label[for='attest']");
 await wait(150);
+check((await text()).includes("Sign here"), "ticking the statement unlocks the signature box");
 await page.evaluate(() => document.querySelector("canvas")?.scrollIntoView({ block: "center" }));
 await wait(300);
 const pad = (await (await page.$("canvas"))!.boundingBox())!;
@@ -229,23 +242,51 @@ await page.goto(`${BASE}${CASE}/done`, { waitUntil: "load" });
 await wait(600);
 check((await page.$("[aria-label='Demo controls']")) !== null, "demo controls float outside the product UI");
 await clickText("[aria-label='Demo controls'] button", "Reset");
-await page.waitForFunction(() => location.pathname.includes("/verify/"));
+await page.waitForFunction(() => location.pathname.endsWith("/start"));
 await wait();
-check((await (await stepItem("Verify facts")).evaluate((el) => el.textContent ?? "")).includes("0/6"), "reset clears progress");
+check((await (await stepItem("Verify facts")).evaluate((el) => el.textContent ?? "")).includes("0/6"), "reset clears progress and asks the AI question again");
 
-// Reset mid-step clears data without leaving the current screen
-await page.goto(`${BASE}${CASE}/verify/offense-summary`, { waitUntil: "load" });
-await wait(600);
-await page.click("article [data-slot='checkbox']");
+// --- Writing without AI ---
+await clickText("button", "Write it myself");
+await page.waitForFunction(() => location.pathname.endsWith("/verify/case-information"));
+await wait(700);
+check((await (await stepItem("Write facts")).evaluate((el) => el.textContent ?? "")).includes("Write facts"), "manual mode renames step 1 to Write facts");
+check((await page.$eval("article textarea", (el) => (el as HTMLTextAreaElement).value)) === "", "sections open as empty editors");
+const articleText = await page.$eval("article", (el) => (el as HTMLElement).innerText);
+check(
+  !articleText.includes("AI draft") && articleText.includes("without AI assistance") && (await page.$eval(`${viewer} h2`, (el) => el.textContent)) === "Case documents",
+  "no AI labels or citations; documents still beside you",
+);
+await page.type("article textarea", "Jordan Thomas Whitfield, 31, pleaded guilty to second-degree commercial burglary.");
 await clickText("article button", "Approve and continue");
-await page.waitForFunction(() => !location.pathname.endsWith("/offense-summary"));
+await page.waitForFunction(() => location.pathname.endsWith("/offense-summary"));
 await wait(500);
-const here = await path();
+check(true, "a hand-written section can be approved");
+
+// Turn AI back on: untouched sections get drafts, the hand-written one is kept
+await clickText("aside button", "Turn on");
+await wait(500);
+check((await text()).includes("AI-generated draft"), "turning AI on fills untouched sections with drafts");
+await clickText(`${outline} a`, "Case information");
+await wait(500);
+check((await text()).includes("pleaded guilty to second-degree commercial burglary."), "…and keeps what the officer wrote");
+
+// Turn it off again, through the confirmation
+await clickText("aside button", "Turn off");
+await wait(400);
+check((await text()).includes("Turn off AI drafting?"), "turning AI off asks for confirmation");
+await clickText("[role='dialog'] button", "Turn off");
+await wait(500);
+check((await (await stepItem("Write facts")).evaluate((el) => el.textContent ?? "")).includes("Write facts"), "AI drafting is off again");
+
+// Reset stays put on the caseload
+await page.goto(`${BASE}/cases`, { waitUntil: "load" });
+await wait(500);
 await clickText("[aria-label='Demo controls'] button", "Reset");
 await page.waitForNavigation({ waitUntil: "load" });
-await wait(700);
-check((await path()) === here, "reset stays on the current screen");
-check((await (await stepItem("Verify facts")).evaluate((el) => el.textContent ?? "")).includes("0/6"), "…and clears the approval just made");
+await wait(500);
+check((await path()) === "/cases", "reset from the caseload stays on the caseload");
+check((await (await rowFor("Whitfield")).evaluate((el) => el.textContent ?? "")).includes("Not started"), "…and the demo case is back to Not started");
 
 check(errors.length === 0, `no page errors${errors.length ? `: ${errors.join(" | ")}` : ""}`);
 await browser.close();

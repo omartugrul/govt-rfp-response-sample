@@ -2,8 +2,19 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { Check, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { ActivityButton } from "@/components/case/activity-panel";
 import { useCase } from "@/components/case/case-context";
 import { DEMO_TODAY } from "@/lib/cases";
 import { assessmentDone, factsDone, type CaseState } from "@/lib/case-state";
@@ -102,7 +113,8 @@ function Step({
 }
 
 export function CaseOutline() {
-  const { record, state } = useCase();
+  const { record, state, setMode } = useCase();
+  const [confirmOff, setConfirmOff] = useState(false);
   const pathname = usePathname();
   const base = `/cases/${record.id}`;
   const [, , , step, sectionId] = pathname.split("/");
@@ -118,19 +130,63 @@ export function CaseOutline() {
   return (
     <aside className="flex h-full min-h-0 flex-col border-r bg-background">
       <div className="border-b px-5 py-4">
-        <h1 className="text-lg font-semibold">{record.defendant}</h1>
+        <div className="flex items-center justify-between gap-2">
+          <h1 className="truncate text-lg font-semibold">{record.defendant}</h1>
+          <ActivityButton />
+        </div>
         <p className="text-xs text-muted-foreground tabular-nums">Case {record.caseNumber}</p>
         <p className={cn("mt-1 text-xs tabular-nums", days <= 3 ? "font-medium text-review-foreground" : "text-muted-foreground")}>
           Report due {record.reportDue.replace(", 2026", "")}, {days === 1 ? "tomorrow" : `in ${days} days`}
         </p>
       </div>
 
+      {/* Use of AI is optional: the officer can switch drafting on or off at any time before signing. */}
+      {state.mode !== "unset" && !state.signed && (
+        <div className="flex items-center justify-between gap-3 border-b px-5 py-3 text-sm">
+          <span>
+            AI drafting <span className="font-medium">{state.mode === "ai" ? "on" : "off"}</span>
+          </span>
+          <Button
+            variant="link"
+            size="sm"
+            className="h-auto p-0"
+            onClick={() => (state.mode === "ai" ? setConfirmOff(true) : setMode("ai"))}
+          >
+            Turn {state.mode === "ai" ? "off" : "on"}
+          </Button>
+        </div>
+      )}
+      <Dialog open={confirmOff} onOpenChange={setConfirmOff}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Turn off AI drafting?</DialogTitle>
+            <DialogDescription>
+              AI drafts will be removed from sections you haven&apos;t edited or approved, leaving empty sections to write
+              yourself. Anything you&apos;ve written or approved is kept. You can turn it back on at any time.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setConfirmOff(false)}>
+              Keep AI drafts
+            </Button>
+            <Button
+              onClick={() => {
+                setMode("manual");
+                setConfirmOff(false);
+              }}
+            >
+              Turn off
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       <ScrollArea className="min-h-0 flex-1">
         <nav aria-label="Report steps" className="px-3 py-4">
           <ol className="space-y-1">
             <Step
               n={1}
-              label="Verify facts"
+              label={state.mode === "manual" ? "Write facts" : "Verify facts"}
               detail={`${facts.filter((d) => approved(state, d.id)).length}/${facts.length}`}
               state={stepState(factsComplete, step === "verify")}
               href={`${base}/verify`}
