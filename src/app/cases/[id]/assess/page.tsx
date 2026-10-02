@@ -33,7 +33,7 @@ function OfficerSection({ def }: { def: SectionDef }) {
             {def.title}
           </Label>
           <p className="mt-1 text-sm text-muted-foreground">
-            {approved ? `Marked final by ${OFFICER} · ${formatTime(state.approvedAt)}` : def.hint}
+            {approved ? `Marked final by ${OFFICER} on ${formatTime(state.approvedAt)}` : def.hint}
           </p>
         </div>
         <SectionStatus def={def} state={state} />
@@ -128,7 +128,7 @@ export default function AssessPage() {
                 <section key={d.id}>
                   <h3 className={cn("text-sm font-semibold", s.status !== "approved" && "text-muted-foreground")}>
                     {d.title}
-                    {s.status !== "approved" && <span className="font-normal"> · not yet approved</span>}
+                    {s.status !== "approved" && <span className="font-normal"> (not yet approved)</span>}
                   </h3>
                   <p className="mt-1 font-serif text-[15px] leading-relaxed text-foreground/90">
                     {s.text ?? suggestionText(draft.sections.find((x) => x.id === d.id))}

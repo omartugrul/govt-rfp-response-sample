@@ -29,10 +29,10 @@ export default function DonePage() {
   const summary: [string, string][] = [
     ["Signed by", `${state.signed.name}, ${OFFICER_TITLE}`],
     ["Signed", signedAt],
-    ["Filed with", `Superior Court, Dept. 14 · sentencing ${record.sentencingDate}`],
+    ["Filed with", `Superior Court, Dept. 14, for sentencing on ${record.sentencingDate}`],
     [
       "Factual sections",
-      `${facts.length} verified against ${draft.citationCount} cited passages${edited ? ` · ${edited} edited or rewritten by you` : ""}`,
+      `${facts.length} verified against ${draft.citationCount} cited passages${edited ? `, ${edited} edited or rewritten by you` : ""}`,
     ],
     ["Evaluation & recommendation", "Written by you"],
   ];
@@ -82,7 +82,7 @@ export default function DonePage() {
               <span className="text-muted-foreground tabular-nums">{formatTime(e.at)}</span>
               <span>
                 <span className="font-medium">{e.action}</span>
-                <span className="text-muted-foreground"> · {e.actor === "AI" ? "AI" : OFFICER}</span>
+                <span className="text-muted-foreground"> by {e.actor === "AI" ? "AI" : OFFICER}</span>
                 {e.detail && <span className="block text-muted-foreground">{e.detail}</span>}
               </span>
             </li>

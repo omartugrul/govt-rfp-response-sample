@@ -78,7 +78,7 @@ export function DocumentViewer({
         <div className="min-w-0">
           <h2 className="truncate text-sm font-semibold">
             Source {activeCite} of {cites.length}
-            <span className="font-normal text-muted-foreground"> · {active && docTitle(active.doc)}</span>
+            <span className="font-normal text-muted-foreground">, {active && docTitle(active.doc)}</span>
           </h2>
           <p className="text-xs text-muted-foreground">Click a sentence or number in the report to jump to its source.</p>
         </div>

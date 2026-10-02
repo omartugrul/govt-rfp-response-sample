@@ -35,6 +35,11 @@ const clickText = async (selector: string, label: string) => {
   await h.evaluate((el) => el.scrollIntoView({ block: "center" }));
   await h.click();
 };
+// House style: no middle-dot separators or em/en dashes anywhere on screen.
+const dashFree = async (where: string) => {
+  const found = (await text()).match(/.{0,30}[·—–].{0,30}/);
+  check(!found, `no "·" or dashes on ${where}${found ? `: "${found[0]}"` : ""}`);
+};
 const pageScrolls = () => page.evaluate(() => document.documentElement.scrollHeight > window.innerHeight + 1);
 const rowFor = (name: string) => find("tbody tr", name);
 const sidebarState = () => page.$eval("[data-slot='sidebar'][data-state]", (el) => el.getAttribute("data-state"));
@@ -63,6 +68,7 @@ check((await text()).includes("Probation Officer II"), "profile menu shows name 
 await page.keyboard.press("Escape");
 await wait(300);
 await shot("00-caseload");
+await dashFree("the caseload");
 
 // --- Caseload ---
 check((await page.$$("tbody tr")).length >= 10, "caseload shows a full list");
@@ -94,6 +100,7 @@ check((await sidebarState()) === "collapsed", "the toggle inside the sidebar col
 check(!(await pageScrolls()), "case page itself does not scroll");
 check((await page.$(outline)) !== null && (await page.$(viewer)) !== null, "outline, report and document column are all present");
 await shot("01-verify");
+await dashFree("step 1");
 
 // --- Outline navigation ---
 for (const t of ["Offense summary", "Defendant's statement", "Victim impact", "Case information"]) {
@@ -175,6 +182,7 @@ await clickText("button", "Mark as final");
 await wait(300);
 check((await (await stepItem("Sign and file")).$("a")) !== null, "Sign and file unlocks after steps 1 and 2");
 await shot("03-assess-done");
+await dashFree("step 2");
 await clickText("a", "Continue to sign");
 await page.waitForFunction(() => location.pathname.endsWith("/sign"));
 await wait();
@@ -194,6 +202,7 @@ await page.mouse.up();
 await wait(200);
 check(!(await submitDisabled()), "drawing a signature enables Sign");
 await shot("04-signature");
+await dashFree("the sign page and full report");
 await page.click("form button[type='submit']");
 await page.waitForFunction(() => location.pathname.endsWith("/done"));
 await wait();
@@ -202,6 +211,7 @@ check(done.includes("Report signed and filed") && done.includes("Jamie Ramirez")
 check((await page.$("img[alt^='Signature of']")) !== null, "success screen shows the drawn signature");
 check((await (await stepItem("Signed and filed")).$("a")) !== null, "outline shows the report as signed");
 await shot("05-done");
+await dashFree("the success screen");
 
 // --- Back on the caseload (client-side, so the sidebar keeps its state) ---
 await clickText("nav[aria-label='breadcrumb'] a, [data-slot='breadcrumb'] a", "My caseload");
@@ -222,6 +232,20 @@ await clickText("[aria-label='Demo controls'] button", "Reset");
 await page.waitForFunction(() => location.pathname.includes("/verify/"));
 await wait();
 check((await (await stepItem("Verify facts")).evaluate((el) => el.textContent ?? "")).includes("0/6"), "reset clears progress");
+
+// Reset mid-step clears data without leaving the current screen
+await page.goto(`${BASE}${CASE}/verify/offense-summary`, { waitUntil: "load" });
+await wait(600);
+await page.click("article [data-slot='checkbox']");
+await clickText("article button", "Approve and continue");
+await page.waitForFunction(() => !location.pathname.endsWith("/offense-summary"));
+await wait(500);
+const here = await path();
+await clickText("[aria-label='Demo controls'] button", "Reset");
+await page.waitForNavigation({ waitUntil: "load" });
+await wait(700);
+check((await path()) === here, "reset stays on the current screen");
+check((await (await stepItem("Verify facts")).evaluate((el) => el.textContent ?? "")).includes("0/6"), "…and clears the approval just made");
 
 check(errors.length === 0, `no page errors${errors.length ? `: ${errors.join(" | ")}` : ""}`);
 await browser.close();

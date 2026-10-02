@@ -52,7 +52,7 @@ function initialState(caseId: string): CaseState {
             at: "2026-09-12T15:04:00.000Z",
             actor: "AI",
             action: "Draft suggestions generated",
-            detail: `${draft.sections.length} factual sections from 4 documents · ${draft.citationCount} citations checked against source text`,
+            detail: `${draft.sections.length} factual sections from 4 documents, ${draft.citationCount} citations checked against source text`,
           },
         ]
       : [],

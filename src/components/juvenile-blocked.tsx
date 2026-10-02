@@ -9,7 +9,7 @@ export function JuvenileBlocked({ record }: { record: CaseRecord }) {
         {record.defendant}, {record.age}
       </h1>
       <p className="mt-1 text-sm text-muted-foreground tabular-nums">
-        Case {record.caseNumber} · {record.charge} · Report due {record.reportDue}
+        Case {record.caseNumber}, {record.charge}. Report due {record.reportDue}.
       </p>
       <Alert className="mt-8 bg-background">
         <Ban />

@@ -14,7 +14,7 @@ export function ReportDocument() {
         <h2 className="font-serif text-3xl font-semibold">Pre-sentence report</h2>
         <p className="mt-2 font-serif text-lg">People v. {record.defendant}</p>
         <p className="mt-4 text-sm text-muted-foreground tabular-nums">
-          Case {record.caseNumber} · Superior Court, Dept. 14 · Sentencing {record.sentencingDate} · Prepared by{" "}
+          Case {record.caseNumber}, Superior Court, Dept. 14. Sentencing {record.sentencingDate}. Prepared by{" "}
           {OFFICER}
         </p>
       </header>
@@ -35,7 +35,7 @@ export function ReportDocument() {
           <div className="mt-1 w-72 border-t pt-2 font-serif">
             <p>{state.signed.name}</p>
             <p className="text-sm text-muted-foreground">
-              {OFFICER_TITLE} ·{" "}
+              {OFFICER_TITLE},{" "}
               {new Date(state.signed.at).toLocaleString("en-US", { dateStyle: "long", timeStyle: "short" })}
             </p>
           </div>

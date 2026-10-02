@@ -121,7 +121,7 @@ export function CaseOutline() {
         <h1 className="text-lg font-semibold">{record.defendant}</h1>
         <p className="text-xs text-muted-foreground tabular-nums">Case {record.caseNumber}</p>
         <p className={cn("mt-1 text-xs tabular-nums", days <= 3 ? "font-medium text-review-foreground" : "text-muted-foreground")}>
-          Report due {record.reportDue.replace(", 2026", "")} · {days === 1 ? "tomorrow" : `in ${days} days`}
+          Report due {record.reportDue.replace(", 2026", "")}, {days === 1 ? "tomorrow" : `in ${days} days`}
         </p>
       </div>
 

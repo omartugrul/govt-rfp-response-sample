@@ -208,7 +208,7 @@ export function FactSection({
       {approved ? (
         <div className="mt-8 flex items-center justify-between gap-4 border-t pt-4 text-sm text-muted-foreground">
           <span>
-            Approved by {OFFICER} · {formatTime(state.approvedAt)}
+            Approved by {OFFICER} on {formatTime(state.approvedAt)}
           </span>
           {!locked && (
             <Button variant="outline" size="sm" onClick={() => reopen(def.id)}>
@@ -219,37 +219,24 @@ export function FactSection({
       ) : (
         !locked &&
         !editing && (
-          // Per-output AI disclosure, with the officer's verification right inside it.
-          <section aria-label="AI disclosure and verification" className="mt-8 rounded-lg border bg-muted/40 p-5">
-            {freeform ? (
-              <p className="text-sm text-muted-foreground">
-                Written by you. The AI draft is set aside.{" "}
-                <Button variant="link" className="h-auto p-0 text-sm" onClick={() => restoreSuggestion(def.id)}>
-                  Use the AI draft instead
-                </Button>
-              </p>
-            ) : (
-              <div className="flex gap-3">
-                <Info className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
-                <div className="text-sm">
-                  <p className="font-semibold">
-                    {showingSuggestion ? "AI-generated draft. It may contain errors." : "AI-assisted draft, edited by you."}
-                  </p>
-                  <p className="text-muted-foreground">
-                    Check every statement against its numbered source before approving.
-                    {!showingSuggestion && (
-                      <>
-                        {" "}
-                        <Button variant="link" className="h-auto p-0 text-sm" onClick={() => restoreSuggestion(def.id)}>
-                          Restore the original AI draft
-                        </Button>
-                      </>
-                    )}
-                  </p>
-                </div>
-              </div>
-            )}
-            <div className="mt-4 flex items-center justify-between gap-6 border-t pt-4">
+          <>
+            {/* Per-output AI disclosure: quiet, directly under the generated text. */}
+            <p className="mt-4 flex items-start gap-1.5 text-xs leading-relaxed text-muted-foreground">
+              <Info className="mt-0.5 size-3.5 shrink-0" />
+              <span>
+                {freeform
+                  ? "Written by you. The AI draft is set aside. "
+                  : showingSuggestion
+                    ? "AI-generated draft. It may contain errors. Check every statement against its numbered source before approving. "
+                    : "AI-assisted draft, edited by you. Check every statement against its numbered source before approving. "}
+                {!showingSuggestion && (
+                  <Button variant="link" className="h-auto p-0 text-xs" onClick={() => restoreSuggestion(def.id)}>
+                    {freeform ? "Use the AI draft instead" : "Restore the original AI draft"}
+                  </Button>
+                )}
+              </span>
+            </p>
+            <div className="mt-8 flex items-center justify-between gap-6 border-t pt-5">
               {!freeform ? (
                 <div className="flex items-center gap-3">
                   <Checkbox id={`verify-${def.id}`} checked={verified} onCheckedChange={(v) => setVerified(v === true)} />
@@ -264,7 +251,7 @@ export function FactSection({
                 Approve and continue <ArrowRight />
               </Button>
             </div>
-          </section>
+          </>
         )
       )}
     </article>

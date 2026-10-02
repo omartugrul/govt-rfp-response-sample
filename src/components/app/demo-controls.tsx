@@ -5,6 +5,7 @@ import { Info, RotateCcw } from "lucide-react";
 import { CASES } from "@/lib/cases";
 import { clearCase } from "@/lib/case-state";
 
+// The only case with saved progress to clear.
 const DEMO_CASE = CASES.find((c) => c.draft)!;
 
 /**
@@ -29,9 +30,8 @@ export function DemoControls() {
         type="button"
         onClick={() => {
           clearCase(DEMO_CASE.id);
-          // A full reload, on purpose, so every mounted screen re-reads the cleared progress.
-          // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-          window.location.assign(`/cases/${DEMO_CASE.id}/verify`);
+          // Stay on the current screen: reload it so everything re-reads the cleared progress.
+          window.location.reload();
         }}
         className="flex cursor-pointer items-center gap-1.5 rounded-full px-3 py-1.5 outline-none hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white/70"
       >

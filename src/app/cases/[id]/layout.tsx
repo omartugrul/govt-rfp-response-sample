@@ -10,7 +10,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: LayoutProps<"/cases/[id]">) {
   const record = getCase((await params).id);
-  return { title: record ? `${record.defendant} · ${record.caseNumber}` : "Case not found" };
+  return { title: record ? `${record.defendant}, ${record.caseNumber}` : "Case not found" };
 }
 
 export default async function CaseLayout({ params, children }: LayoutProps<"/cases/[id]">) {

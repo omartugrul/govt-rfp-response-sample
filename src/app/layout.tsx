@@ -16,7 +16,7 @@ const sourceSerif = Source_Serif_4({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Groundwork — Pre-Sentence Report Drafting (Demo)", template: "%s · Groundwork" },
+  title: { default: "Groundwork: Pre-Sentence Report Drafting (Demo)", template: "%s | Groundwork" },
   description:
     "Demonstration prepared in response to the County of San Diego Probation AI Report Writing Services RFP. Fictional data.",
   robots: { index: false, follow: false },

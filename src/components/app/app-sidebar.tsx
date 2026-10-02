@@ -53,7 +53,7 @@ export function AppSidebar() {
                 { label: "Templates", icon: FileStack },
               ].map(({ label, icon: Icon }) => (
                 <SidebarMenuItem key={label} title="Not in this demo">
-                  <SidebarMenuButton aria-disabled tooltip={`${label} · not in this demo`}>
+                  <SidebarMenuButton aria-disabled tooltip={`${label} (not in this demo)`}>
                     <Icon />
                     <span>{label}</span>
                   </SidebarMenuButton>

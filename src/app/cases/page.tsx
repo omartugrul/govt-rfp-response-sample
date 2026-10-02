@@ -45,7 +45,7 @@ export default function CaseloadPage() {
       <div className="mx-auto max-w-5xl px-8 py-10">
         <h1 className="text-2xl font-semibold">My caseload</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          {open} open reports · {dueThisWeek} due this week
+          {open} open reports, {dueThisWeek} due this week
         </p>
 
         <div className="mt-6 rounded-lg border bg-background">
@@ -70,7 +70,7 @@ export default function CaseloadPage() {
                   <TableRow
                     key={c.id}
                     aria-disabled={inert || undefined}
-                    title={inert ? "Sample record · not part of this demo" : undefined}
+                    title={inert ? "Sample record, not part of this demo" : undefined}
                     className={cn(
                       inert
                         ? "opacity-50 hover:bg-transparent"
@@ -105,7 +105,7 @@ export default function CaseloadPage() {
                     </TableCell>
                     <TableCell>
                       {c.juvenile ? (
-                        <StatusBadge tone="neutral">Juvenile · no AI draft</StatusBadge>
+                        <StatusBadge tone="neutral">Juvenile, no AI draft</StatusBadge>
                       ) : (
                         status && <CaseStatusBadge status={status} />
                       )}
