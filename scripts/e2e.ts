@@ -14,8 +14,15 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage();
 const errors: string[] = [];
 page.on("pageerror", (e) => errors.push(String(e)));
-page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
-page.on("response", (r) => r.status() >= 400 && errors.push(`${r.status()} ${r.url()}`));
+// Vercel Analytics' script only exists on Vercel, so it 404s when testing locally.
+const vercelOnly = (url: string) => url.includes("/_vercel/");
+page.on("console", (m) => {
+  if (m.type() !== "error") return;
+  // Resource failures are reported (with their URL) by the response handler below.
+  if (m.text().startsWith("Failed to load resource")) return;
+  errors.push(m.text());
+});
+page.on("response", (r) => r.status() >= 400 && !vercelOnly(r.url()) && errors.push(`${r.status()} ${r.url()}`));
 
 let failures = 0;
 const check = (ok: boolean, label: string) => {
